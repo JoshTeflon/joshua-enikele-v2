@@ -1,22 +1,15 @@
-"use client"
+"use client";
 
 import { useEffect, useState } from "react";
 
-const location = {
-  city: "Lagos",
-  country: "NGA",
-  timezone: "GMT+1",
-};
-
-const getLagosTime = () => {
-  return new Date().toLocaleTimeString("en-GB", {
-    timeZone: "Africa/Lagos",
-    hour: "2-digit",
-    minute: "2-digit",
-  })
-}
+import { getLagosTime } from "@/lib/utils";
+import me from "@/content/me.json";
 
 const Navigation = () => {
+  const navigationItems = ["home", "work", "contact"]
+
+  const { firstName, lastName, location } = me
+
   const [time, setTime] = useState(getLagosTime)
 
   useEffect(() => {
@@ -26,12 +19,12 @@ const Navigation = () => {
 
   return (
     <nav className="p-2 w-full flex items-center justify-between uppercase">
-      <h1 className="text-base tracking-wide font-nosifer">joshua.enikele</h1>
+      <h1 className="text-base tracking-wide font-nosifer">{firstName}.{lastName}</h1>
 
       <ul className="flex items-center space-x-16 text-sm">
-        <li>home</li>
-        <li>work</li>
-        <li>contact</li>
+        {navigationItems.map((item) => (
+          <li key={item} className="">{item}</li>
+        ))}
       </ul>
 
       <div className="text-sm">{location.city}, {location.country}: ({location.timezone}) {time}</div>
