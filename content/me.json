@@ -1,0 +1,9 @@
+{
+  "firstName": "Joshua",
+  "lastName": "Enikele",
+  "location": {
+    "city": "Lagos",
+    "country": "NGA",
+    "timezone": "GMT+1"
+  }
+}
