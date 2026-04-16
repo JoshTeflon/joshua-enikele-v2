@@ -24,3 +24,45 @@ body {
   color: var(--foreground);
   font-family: var(--font-space-grotesk), Arial, Helvetica, sans-serif;
 }
+
+@layer components {
+  .corner-hover {
+    position: absolute;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-color: var(--foreground);
+    border-style: solid;
+    opacity: 0;
+    transform: scale(0.75);
+    transition: all 0.3s ease;
+  }
+
+  .corner-hover.tl {
+    top: 0;
+    left: 0;
+    border-width: 1px 0 0 1px;
+  }
+
+  .corner-hover.tr {
+    top: 0;
+    right: 0;
+    border-width: 1px 1px 0 0;
+  }
+
+  .corner-hover.bl {
+    bottom: 0;
+    left: 0;
+    border-width: 0 0 1px 1px;
+  }
+
+  .corner-hover.br {
+    bottom: 0;
+    right: 0;
+    border-width: 0 1px 1px 0;
+  }
+
+  .frame-link:hover .corner-hover {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
