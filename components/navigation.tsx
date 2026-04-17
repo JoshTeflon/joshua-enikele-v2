@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import { getLagosTime } from "@/lib/utils";
@@ -10,6 +11,7 @@ import Frame from "./frame";
 
 const Navigation = () => {
   const navigationItems = ["home", "work", "contact"];
+  const pathname = usePathname();
 
   const { firstName, lastName, location } = me;
 
@@ -25,15 +27,20 @@ const Navigation = () => {
       <h1 className="text-base tracking-wide font-nosifer">{firstName}.{lastName}</h1>
 
       <ul className="flex items-center space-x-16 text-sm">
-        {navigationItems.map((item) => (
-          <li key={item}>
-            <Link className="frame-link" href={'/'}>
-              <Frame className="py-1.5 px-4">
-                {item}
-              </Frame>
-            </Link>
-          </li>
-        ))}
+        {navigationItems.map((item) => {
+          const href = item === "home" ? "/" : `/${item}`;
+          const isActive = pathname === href || (item === "home" && pathname === "/");
+          
+          return (
+            <li key={item}>
+              <Link className={`frame-link ${isActive ? "active" : ""}`} href={href}>
+                <Frame className="py-1.5 px-4">
+                  {item}
+                </Frame>
+              </Link>
+            </li>
+          );
+        })}
       </ul>
 
       <div className="text-sm">{location.city}, {location.country}: ({location.timezone}) {time}</div>

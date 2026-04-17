@@ -61,6 +61,11 @@ body {
     border-width: 0 1px 1px 0;
   }
 
+  .frame-link.active .corner-hover {
+    opacity: 1;
+    transform: scale(1);
+  }
+
   .frame-link:hover .corner-hover {
     opacity: 1;
     transform: scale(1);
