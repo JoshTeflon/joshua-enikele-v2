@@ -6,5 +6,9 @@
     "city": "Lagos",
     "country": "NGA",
     "timezone": "GMT+1"
+  },
+  "socials": {
+    "github": "https://github.com/JoshTeflon",
+    "linkedin": "https://www.linkedin.com/in/joshua-enikele/"
   }
 }
