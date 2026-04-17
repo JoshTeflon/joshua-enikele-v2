@@ -1,17 +1,51 @@
+"use client";
+
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
+
+import { getLagosTime } from "@/lib/utils";
+import me from "@/content/me.json";
+
+import Frame from "./frame";
+
 const Navigation = () => {
+  const navigationItems = ["home", "work", "contact"];
+  const pathname = usePathname();
+
+  const { firstName, lastName, location } = me;
+
+  const [time, setTime] = useState(getLagosTime);
+
+  useEffect(() => {
+    const interval = setInterval(() => setTime(getLagosTime()), 1000)
+    return () => clearInterval(interval)
+  }, []);
+
   return (
     <nav className="p-2 w-full flex items-center justify-between uppercase">
-      <h1 className="text-base tracking-wide font-nosifer">joshua.enikele</h1>
+      <h1 className="text-base tracking-wide font-nosifer">{firstName}.{lastName}</h1>
 
       <ul className="flex items-center space-x-16 text-sm">
-        <li>home</li>
-        <li>work</li>
-        <li>contact</li>
+        {navigationItems.map((item) => {
+          const href = item === "home" ? "/" : `/${item}`;
+          const isActive = pathname === href || (item === "home" && pathname === "/");
+          
+          return (
+            <li key={item}>
+              <Link className={`frame-link ${isActive ? "active" : ""}`} href={href}>
+                <Frame className="py-1.5 px-4">
+                  {item}
+                </Frame>
+              </Link>
+            </li>
+          );
+        })}
       </ul>
 
-      <div className="text-sm">Lagos, NGA: (GMT+1) 19:45</div>
+      <div className="text-sm">{location.city}, {location.country}: ({location.timezone}) {time}</div>
     </nav>
-  )
+  );
 }
 
-export default Navigation
+export default Navigation;
