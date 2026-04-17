@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import { Nosifer, Space_Grotesk } from "next/font/google";
+
+import { Navigation, TopBar } from "@/components/ui";
+
 import "./globals.css";
 
 const nosifer = Nosifer({
@@ -28,7 +31,15 @@ export default function RootLayout({
       lang="en"
       className={`${nosifer.variable} ${spaceGrotesk.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="p-6 xl:p-8 min-h-full flex flex-col justify-between">
+        <TopBar />
+        
+        {children}
+
+        <header className="mt-auto">
+          <Navigation />
+        </header>
+      </body>
     </html>
   );
 }
