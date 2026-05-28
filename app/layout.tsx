@@ -36,9 +36,7 @@ export default function RootLayout({
         
         {children}
 
-        <header className="mt-auto">
-          <Navigation />
-        </header>
+        <Navigation />
       </body>
     </html>
   );
