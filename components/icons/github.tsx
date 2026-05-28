@@ -1,13 +1,9 @@
 import type { JSX, SVGProps } from "react";
 
-interface GithubProps extends SVGProps<SVGSVGElement> {
-  size?: number;
-}
-
-const Github = ({ size = 16, ...props }: GithubProps): JSX.Element => (
+const Github = ({ ...props }: SVGProps<SVGSVGElement>): JSX.Element => (
   <svg
-    width={size}
-    height={size}
+    width={16}
+    height={16}
     viewBox="0 0 16 16"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
