@@ -24,7 +24,7 @@ const Navigation = () => {
 
   return (
     <nav className="p-2 w-full flex items-center justify-between uppercase">
-      <h1 className="text-base tracking-wide font-nosifer">{firstName}.{lastName}</h1>
+      <h1 className="text-base tracking-[10%]">{firstName}.{lastName}</h1>
 
       <ul className="flex items-center space-x-16 text-sm">
         {navigationItems.map((item) => {

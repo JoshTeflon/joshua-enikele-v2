@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Nosifer, Space_Grotesk } from "next/font/google";
+import { Nosifer, Cascadia_Code } from "next/font/google";
 
 import { Navigation, TopBar } from "@/components/ui";
 
@@ -11,8 +11,9 @@ const nosifer = Nosifer({
   subsets: ["latin"],
 });
 
-const spaceGrotesk = Space_Grotesk({
-  variable: "--font-space-grotesk",
+const cascadiaCode = Cascadia_Code({
+  weight: ["200", "300", "400", "500", "600", "700"],
+  variable: "--font-cascadia-code",
   subsets: ["latin"],
 });
 
@@ -29,7 +30,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${nosifer.variable} ${spaceGrotesk.variable} h-full antialiased`}
+      className={`${nosifer.variable} ${cascadiaCode.variable} h-full antialiased`}
     >
       <body className="p-6 xl:p-8 min-h-full flex flex-col justify-between">
         <TopBar />
