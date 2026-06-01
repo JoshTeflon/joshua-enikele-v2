@@ -9,8 +9,10 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
 
-  --font-nosifer: var(--font-nosifer);
   --font-cascadia-code: var(--font-cascadia-code);
+  --font-duvel: var(--font-duvel);
+  --font-duvel-sans: var(--font-duvel-sans);
+  --font-duvel-florale: var(--font-duvel-florale);
 }
 
 @media (prefers-color-scheme: dark) {
