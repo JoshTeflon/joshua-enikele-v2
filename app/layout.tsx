@@ -1,18 +1,14 @@
 import type { Metadata } from "next";
-import { Nosifer, Space_Grotesk } from "next/font/google";
+import { Cascadia_Code } from "next/font/google";
 
 import { Navigation, TopBar } from "@/components/ui";
+import { duvel, duvelSans, duvelFlorale } from "@/fonts";
 
 import "./globals.css";
 
-const nosifer = Nosifer({
-  weight: "400",
-  variable: "--font-nosifer",
-  subsets: ["latin"],
-});
-
-const spaceGrotesk = Space_Grotesk({
-  variable: "--font-space-grotesk",
+const cascadiaCode = Cascadia_Code({
+  weight: ["200", "300", "400", "500", "600", "700"],
+  variable: "--font-cascadia-code",
   subsets: ["latin"],
 });
 
@@ -29,16 +25,14 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${nosifer.variable} ${spaceGrotesk.variable} h-full antialiased`}
+      className={`${duvel.variable} ${duvelSans.variable} ${duvelFlorale.variable} ${cascadiaCode.variable} h-full antialiased`}
     >
       <body className="p-6 xl:p-8 min-h-full flex flex-col justify-between">
         <TopBar />
         
         {children}
 
-        <header className="mt-auto">
-          <Navigation />
-        </header>
+        <Navigation />
       </body>
     </html>
   );
