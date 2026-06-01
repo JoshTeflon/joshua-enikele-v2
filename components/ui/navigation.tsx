@@ -23,10 +23,10 @@ const Navigation = () => {
   }, []);
 
   return (
-    <nav className="p-2 w-full flex items-center justify-between uppercase">
+    <nav className="p-2 w-full grid grid-cols-3 items-center uppercase">
       <h1 className="text-base tracking-[10%]">{firstName}.{lastName}</h1>
 
-      <ul className="flex items-center space-x-16 text-sm">
+      <ul className="flex items-center justify-center space-x-16 text-sm">
         {navigationItems.map((item) => {
           const href = item === "home" ? "/" : `/${item}`;
           const isActive = pathname === href || (item === "home" && pathname === "/");
@@ -43,7 +43,9 @@ const Navigation = () => {
         })}
       </ul>
 
-      <div className="text-sm">{location.city}, {location.country}: ({location.timezone}) {time}</div>
+      <div className="text-sm justify-self-end">
+        {location.city}, {location.country}: ({location.timezone}) {time}
+      </div>
     </nav>
   );
 }
