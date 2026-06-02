@@ -23,7 +23,7 @@ const Navigation = () => {
   }, []);
 
   return (
-    <nav className="p-2 w-full grid grid-cols-3 items-center uppercase">
+    <nav className="fixed inset-x-6 bottom-6 xl:inset-x-8 xl:bottom-8 z-50 p-2 uppercase grid grid-cols-3 items-center ">
       <h1 className="text-base tracking-[10%]">{firstName}.{lastName}</h1>
 
       <ul className="flex items-center justify-center space-x-16 text-sm">
