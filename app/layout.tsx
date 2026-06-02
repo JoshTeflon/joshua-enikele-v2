@@ -27,7 +27,7 @@ export default function RootLayout({
       lang="en"
       className={`${duvel.variable} ${duvelSans.variable} ${duvelFlorale.variable} ${cascadiaCode.variable} h-full antialiased`}
     >
-      <body className="p-6 xl:p-8 min-h-full flex flex-col justify-between">
+      <body className="relative min-h-screen overflow-x-hidden">
         <TopBar />
         
         {children}
