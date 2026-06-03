@@ -4,7 +4,7 @@ const Hero = () => {
   const { firstName, lastName, tagline } = me;
 
   return (
-    <section className="flex flex-1 flex-col justify-center gap-8">
+    <section className="min-h-screen flex flex-col justify-center gap-8">
       <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between lg:gap-12">
         <h2 className="self-start whitespace-nowrap font-duvel uppercase leading-[0.75] tracking-widest text-[clamp(4rem,21vw,16rem)] lg:text-[clamp(3.25rem,17vw,16rem)]">
           {firstName}
