@@ -28,6 +28,11 @@ export default function RootLayout({
       className={`${duvel.variable} ${duvelSans.variable} ${duvelFlorale.variable} ${cascadiaCode.variable} h-full antialiased`}
     >
       <body className="relative min-h-screen overflow-x-hidden">
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||t==='light'){document.documentElement.classList.add(t);}}catch(e){}})();`,
+          }}
+        />
         <TopBar />
         
         {children}
