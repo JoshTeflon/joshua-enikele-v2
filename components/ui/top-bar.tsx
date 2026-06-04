@@ -1,11 +1,11 @@
-import { GithubIcon, LinkedinIcon, ToggleIcon } from "../icons";
+import { GithubIcon, LinkedinIcon, DeviceIcon } from "../icons";
 
 import me from "@/content/me.json";
 
 const TopBar = () => {
   return (
     <header className="fixed inset-x-6 top-6 xl:inset-x-8 xl:top-8 z-50 p-2 max-h-8 bg-foreground text-background flex items-center justify-between">
-      <h1 className="text-base uppercase tracking-widest">{me.role}</h1>
+      <h1 className="text-base font-light uppercase tracking-widest">{me.role}</h1>
 
       <div className="flex items-center space-x-2 xl:space-x-3">
         <a
@@ -24,7 +24,7 @@ const TopBar = () => {
         >
           <LinkedinIcon />
         </a>
-        <ToggleIcon />
+        <DeviceIcon />
       </div>
     </header>
   );
