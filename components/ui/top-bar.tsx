@@ -1,4 +1,6 @@
-import { GithubIcon, LinkedinIcon, DeviceIcon } from "../icons";
+import { GithubIcon, LinkedinIcon } from "../icons";
+
+import ThemeToggle from "./theme-toggle";
 
 import me from "@/content/me.json";
 
@@ -16,6 +18,7 @@ const TopBar = () => {
         >
           <GithubIcon />
         </a>
+
         <a
           href={me.socials.linkedin}
           target="_blank"
@@ -24,7 +27,8 @@ const TopBar = () => {
         >
           <LinkedinIcon />
         </a>
-        <DeviceIcon />
+
+        <ThemeToggle />
       </div>
     </header>
   );
