@@ -31,7 +31,7 @@ const Connect = () => {
               >
                 <span className="text-foreground/75">{label}</span>
                 <span className="truncate">{value}</span>
-                <ArrowIcon className="shrink-0 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                <ArrowIcon className="shrink-0 transition-transform duration-300 group-hover:rotate-45" />
               </a>
             </li>
           ))}
