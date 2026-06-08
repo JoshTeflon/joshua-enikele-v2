@@ -3,3 +3,4 @@ export { default as LinkedinIcon } from "./linkedin";
 export { default as DeviceIcon } from "./device";
 export { default as SunIcon } from "./sun";
 export { default as MoonIcon } from "./moon";
+export { default as ArrowIcon } from "./arrow";
