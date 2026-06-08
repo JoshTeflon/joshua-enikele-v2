@@ -15,6 +15,7 @@ const TopBar = () => {
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Visit Joshua Enikele's GitHub profile"
+          className="top-bar-icon"
         >
           <GithubIcon />
         </a>
@@ -24,6 +25,7 @@ const TopBar = () => {
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Visit Joshua Enikele's LinkedIn profile"
+          className="top-bar-icon"
         >
           <LinkedinIcon />
         </a>

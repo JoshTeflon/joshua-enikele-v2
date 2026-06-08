@@ -57,7 +57,7 @@ const ThemeToggle = () => {
       onClick={cycleTheme}
       aria-label={label}
       title={label}
-      className="flex cursor-pointer items-center transition-opacity hover:opacity-70"
+      className="top-bar-icon flex items-center cursor-pointer"
     >
       <Icon />
     </button>
