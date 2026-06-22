@@ -10,7 +10,7 @@ import me from "@/content/me.json";
 import Frame from "./frame";
 
 const Navigation = () => {
-  const navigationItems = ["home", "about", "work", "connect"];
+  const navigationItems = ["home", "work", "about", "connect"];
   const pathname = usePathname();
 
   const { firstName, lastName, location } = me;
