@@ -89,4 +89,15 @@ body {
     opacity: 0.75;
     transition: all 0.3s ease-in-out;
   }
+
+  .work-swiper .swiper-slide .work-slide-inner {
+    transform: scale(0.88);
+    opacity: 0.75;
+    transition: transform 0.5s ease, opacity 0.5s ease;
+  }
+
+  .work-swiper .swiper-slide-active .work-slide-inner {
+    transform: scale(1);
+    opacity: 1;
+  }
 }

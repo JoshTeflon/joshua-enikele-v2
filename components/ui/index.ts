@@ -3,4 +3,5 @@ export { default as Navigation } from "./navigation";
 export { default as Frame } from "./frame";
 export { default as Hero } from "./hero";
 export { default as About } from "./about";
+export { default as Work } from "./work";
 export { default as Connect } from "./connect";
