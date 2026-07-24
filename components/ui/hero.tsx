@@ -50,7 +50,7 @@ const Hero = () => {
       </div>
 
       <div className="flex flex-col gap-1">
-        <p className="self-end text-right text-xs uppercase tracking-wider text-foreground/80 sm:text-sm">
+        <p className="self-end text-right text-xs uppercase tracking-wider text-foreground/80 lg:text-sm">
           {locationLine}
         </p>
 
