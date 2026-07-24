@@ -8,6 +8,7 @@ import LoadingScreen from "./loading-screen";
 
 const MIN_DURATION_MS = 1600;
 const FADE_MS = 500;
+const LOCK_CLASS = "site-scroll-locked";
 
 const uniqueAssets = [
   ...new Set(projects.map((project) => project.image).filter(Boolean)),
@@ -21,12 +22,28 @@ const preloadImage = (src: string) =>
     img.src = src;
   });
 
+const lockScroll = () => {
+  document.documentElement.classList.add(LOCK_CLASS);
+};
+
+const unlockScroll = () => {
+  document.documentElement.classList.remove(LOCK_CLASS);
+};
+
 const IntroLoader = () => {
   const [phase, setPhase] = useState<"visible" | "exiting" | "done">("visible");
 
   useEffect(() => {
     let cancelled = false;
     const startedAt = performance.now();
+    const scroller = document.querySelector<HTMLElement>(".site-scroll");
+
+    // Clear any leftover inline overflow from earlier lock attempts
+    if (scroller) {
+      scroller.style.removeProperty("overflow");
+      scroller.style.removeProperty("overflow-x");
+      scroller.style.removeProperty("overflow-y");
+    }
 
     const finish = async () => {
       await Promise.all([
@@ -47,19 +64,17 @@ const IntroLoader = () => {
       setPhase("done");
     };
 
-    document.body.style.overflow = "hidden";
+    lockScroll();
     finish();
 
     return () => {
       cancelled = true;
-      document.body.style.overflow = "";
+      unlockScroll();
     };
   }, []);
 
   useEffect(() => {
-    if (phase === "done") {
-      document.body.style.overflow = "";
-    }
+    if (phase === "done") unlockScroll();
   }, [phase]);
 
   if (phase === "done") return null;
