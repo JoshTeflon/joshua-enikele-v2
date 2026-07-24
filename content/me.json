@@ -8,6 +8,7 @@
     "Five years shipping production systems at scale, from architecture to full product ownership."
   ],
   "locationLine": "Based in Nigeria, working worldwide",
+  "connectBlurb": "I care about the kind of engineering that survives contact with real users at scale.",
   "email": "jenikele21h@gmail.com",
   "location": {
     "city": "Lagos",
@@ -30,8 +31,7 @@
   ],
   "about": [
     "I'm **Joshua**, a **software engineer** based in **Lagos**, building production applications across healthcare, fintech, and civic-scale data systems.",
-    "Over the past five years I've led **frontend architecture** for a multi-tenant healthcare SaaS platform from greenfield to production, migrated a live codebase from Vue 2 to Vue 3 and TypeScript with zero downtime, and shipped a fintech feature that lifted borrower retention by 10% on a platform serving thousands of users.",
-    "My depth sits in **TypeScript, React, Next.js, and Node.js**, I work across the full stack when the problem calls for it, from **API contracts and database design** to **CI/CD pipelines** and **production debugging**.",
-    "I care about the kind of engineering that survives contact with real users at scale, not just what looks good in a demo."
+    "Most of my work has involved leading **frontend architecture** from **greenfield to production**, turning ambiguous requirements into a working, maintainable product. I also work across the stack when the problem calls for it, and my depth sits in **TypeScript, React, Next.js, and Node.js**.",
+    "Outside of work, I'm usually watching or playing football, catching up on anime, deep into a game or listening to something new. I like things with good craft behind them, whether that's a UI or a soundtrack."
   ]
 }

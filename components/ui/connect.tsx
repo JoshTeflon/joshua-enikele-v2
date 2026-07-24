@@ -4,7 +4,7 @@ import { ArrowIcon } from "../icons";
 import FullBleedText from "./full-bleed-text";
 
 const Connect = () => {
-  const { firstName, lastName, email, socials } = me;
+  const { firstName, lastName, email, socials, connectBlurb } = me;
 
   const contacts = [
     { label: "Email", value: email, href: `mailto:${email}` },
@@ -17,9 +17,14 @@ const Connect = () => {
   return (
     <section className="flex min-h-screen flex-col justify-between gap-12 py-20">
       <div className="flex flex-col gap-10 lg:flex-row lg:justify-between lg:gap-12">
-        <h2 className="font-duvel-sans uppercase tracking-wider text-[clamp(1.75rem,5vw,2.5rem)] lg:text-[2.5rem]">
-          Let&rsquo;s connect
-        </h2>
+        <div className="flex max-w-md flex-col gap-4">
+          <h2 className="font-duvel-sans uppercase tracking-wider text-[clamp(1.75rem,5vw,2.5rem)] lg:text-[2.5rem]">
+            Let&rsquo;s connect
+          </h2>
+          <p className="text-sm leading-relaxed text-foreground/75">
+            {connectBlurb}
+          </p>
+        </div>
 
         <ul className="w-full lg:w-1/2">
           {contacts.map(({ label, value, href }) => (
