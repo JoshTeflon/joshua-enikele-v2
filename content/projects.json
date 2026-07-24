@@ -1,22 +1,50 @@
 [
   {
-    "title": "ii6pyro artist site",
-    "description": "Immersive web experience for an Afro-fusion artist based in Lagos. Translates the artist's brand into a performant, animated digital experience with WebGL and motion design.",
-    "image": "/prj_ii6pyro.png"
+    "title": "Healthcare SaaS platform",
+    "description": "Multi-tenant healthcare product interfaces spanning scheduling, records, and clinician workflows — built for reliability in production at scale.",
+    "image": "/prj_ii6pyro.png",
+    "stack": ["React", "Vue.js", "JavaScript", "TypeScript", "Node.js"],
+    "gallery": [
+      "/prj_ii6pyro.png",
+      "/prj_ii6pyro.png",
+      "/prj_ii6pyro.png",
+      "/prj_ii6pyro.png"
+    ]
+  },
+  {
+    "title": "Civic data systems",
+    "description": "Frontend architecture for civic-scale data surfaces — dashboards and flows designed to stay usable under real-world load and messy inputs.",
+    "image": "/prj_ii6pyro.png",
+    "stack": ["Next.js", "C#", "PostgreSQL"],
+    "gallery": [
+      "/prj_ii6pyro.png",
+      "/prj_ii6pyro.png",
+      "/prj_ii6pyro.png",
+      "/prj_ii6pyro.png"
+    ]
+  },
+  {
+    "title": "Fintech retention feature",
+    "description": "Borrower-facing product work that lifted retention by 10% on a platform serving thousands of users — focused on clarity, trust, and conversion.",
+    "image": "/prj_ii6pyro.png",
+    "stack": ["React", "TypeScript", "PostgreSQL"],
+    "gallery": [
+      "/prj_ii6pyro.png",
+      "/prj_ii6pyro.png",
+      "/prj_ii6pyro.png",
+      "/prj_ii6pyro.png"
+    ]
   },
   {
     "title": "ii6pyro artist site",
     "description": "Immersive web experience for an Afro-fusion artist based in Lagos. Translates the artist's brand into a performant, animated digital experience with WebGL and motion design.",
-    "image": "/prj_ii6pyro.png"
-  },
-  {
-    "title": "ii6pyro artist site",
-    "description": "Immersive web experience for an Afro-fusion artist based in Lagos. Translates the artist's brand into a performant, animated digital experience with WebGL and motion design.",
-    "image": "/prj_ii6pyro.png"
-  },
-  {
-    "title": "ii6pyro artist site",
-    "description": "Immersive web experience for an Afro-fusion artist based in Lagos. Translates the artist's brand into a performant, animated digital experience with WebGL and motion design.",
-    "image": "/prj_ii6pyro.png"
+    "image": "/prj_ii6pyro.png",
+    "stack": ["Next.js", "TypeScript", "GSAP", "WebGL"],
+    "gallery": [
+      "/prj_ii6pyro.png",
+      "/prj_ii6pyro.png",
+      "/prj_ii6pyro.png",
+      "/prj_ii6pyro.png"
+    ]
   }
 ]

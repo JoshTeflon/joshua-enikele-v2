@@ -8,3 +8,4 @@ export { default as Connect } from "./connect";
 export { default as StackSlider } from "./stack-slider";
 export { default as LoadingScreen } from "./loading-screen";
 export { default as IntroLoader } from "./intro-loader";
+export { default as ProjectModal } from "./project-modal";

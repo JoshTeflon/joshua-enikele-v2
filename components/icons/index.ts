@@ -4,3 +4,4 @@ export { default as DeviceIcon } from "./device";
 export { default as SunIcon } from "./sun";
 export { default as MoonIcon } from "./moon";
 export { default as ArrowIcon } from "./arrow";
+export { default as CloseIcon } from "./close";
