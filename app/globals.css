@@ -100,4 +100,45 @@ body {
     transform: scale(1);
     opacity: 1;
   }
+
+  .stack-slider {
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      transparent 0%,
+      #000 14%,
+      #000 86%,
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      to bottom,
+      transparent 0%,
+      #000 14%,
+      #000 86%,
+      transparent 100%
+    );
+  }
+
+  .stack-slider-track {
+    animation: stack-scroll var(--stack-duration, 20s) linear infinite;
+    will-change: transform;
+  }
+
+  .stack-slider:hover .stack-slider-track {
+    animation-play-state: paused;
+  }
+
+  @keyframes stack-scroll {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+    to {
+      transform: translate3d(0, -50%, 0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .stack-slider-track {
+      animation: none;
+    }
+  }
 }

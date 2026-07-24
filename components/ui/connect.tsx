@@ -1,6 +1,7 @@
 import me from "@/content/me.json";
 
 import { ArrowIcon } from "../icons";
+import FullBleedText from "./full-bleed-text";
 
 const Connect = () => {
   const { firstName, lastName, email, socials } = me;
@@ -38,24 +39,9 @@ const Connect = () => {
         </ul>
       </div>
 
-      <svg
-        viewBox="0 0 600 100"
-        preserveAspectRatio="xMidYMid meet"
-        role="img"
-        aria-label={fullName}
-        className="w-full overflow-visible font-duvel"
-      >
-        <text
-          x="0"
-          y="76"
-          fontSize="100"
-          textLength="600"
-          lengthAdjust="spacingAndGlyphs"
-          fill="currentColor"
-        >
-          {fullName}
-        </text>
-      </svg>
+      <FullBleedText className="font-duvel-sans" aria-label={fullName}>
+        {fullName}
+      </FullBleedText>
     </section>
   );
 };

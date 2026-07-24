@@ -1,8 +1,13 @@
 {
   "firstName": "Joshua",
   "lastName": "Enikele",
-  "role": "Frontend Engineer",
+  "role": "Software Engineer",
   "tagline": "I build interactive web experiences, product interfaces, and scalable frontend systems.",
+  "pitch": [
+    "I build interactive web experiences, product interfaces, and scalable systems, end to end.",
+    "Five years shipping production systems at scale, from architecture to full product ownership."
+  ],
+  "locationLine": "Based in Nigeria, working worldwide",
   "email": "jenikele21h@gmail.com",
   "location": {
     "city": "Lagos",
@@ -12,5 +17,21 @@
   "socials": {
     "github": "https://github.com/JoshTeflon",
     "linkedin": "https://www.linkedin.com/in/joshua-enikele/"
-  }
+  },
+  "stacks": [
+    "JavaScript",
+    "TypeScript",
+    "React",
+    "Next.js",
+    "Vue.js",
+    "Node.js",
+    "C#",
+    "PostgreSQL"
+  ],
+  "about": [
+    "I'm **Joshua**, a **software engineer** based in **Lagos**, building production applications across healthcare, fintech, and civic-scale data systems.",
+    "Over the past five years I've led **frontend architecture** for a multi-tenant healthcare SaaS platform from greenfield to production, migrated a live codebase from Vue 2 to Vue 3 and TypeScript with zero downtime, and shipped a fintech feature that lifted borrower retention by 10% on a platform serving thousands of users.",
+    "My depth sits in **TypeScript, React, Next.js, and Node.js**, I work across the full stack when the problem calls for it, from **API contracts and database design** to **CI/CD pipelines** and **production debugging**.",
+    "I care about the kind of engineering that survives contact with real users at scale, not just what looks good in a demo."
+  ]
 }
