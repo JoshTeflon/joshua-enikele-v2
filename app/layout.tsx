@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Cascadia_Code } from "next/font/google";
 
-import { Navigation, TopBar } from "@/components/ui";
+import { Navigation, TopBar, IntroLoader } from "@/components/ui";
 import { duvel, duvelSans, duvelFlorale } from "@/fonts";
 
 import "./globals.css";
@@ -33,6 +33,7 @@ export default function RootLayout({
             __html: `(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||t==='light'){document.documentElement.classList.add(t);}}catch(e){}})();`,
           }}
         />
+        <IntroLoader />
         <TopBar />
         
         {children}

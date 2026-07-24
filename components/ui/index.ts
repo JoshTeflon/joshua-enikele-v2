@@ -6,3 +6,5 @@ export { default as About } from "./about";
 export { default as Work } from "./work";
 export { default as Connect } from "./connect";
 export { default as StackSlider } from "./stack-slider";
+export { default as LoadingScreen } from "./loading-screen";
+export { default as IntroLoader } from "./intro-loader";
