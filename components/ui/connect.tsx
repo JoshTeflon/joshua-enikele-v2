@@ -15,7 +15,11 @@ const Connect = () => {
   const fullName = `${firstName} ${lastName}`.toUpperCase();
 
   return (
-    <section className="flex min-h-screen flex-col justify-between gap-12 py-20">
+    <section
+      id="connect"
+      data-section
+      className="flex min-h-screen flex-col justify-between gap-12 py-20"
+    >
       <div className="flex flex-col gap-10 lg:flex-row lg:justify-between lg:gap-12">
         <div className="flex max-w-md flex-col gap-4">
           <h2 className="font-duvel-sans uppercase tracking-wider text-[clamp(1.75rem,5vw,2.5rem)] lg:text-[2.5rem]">

@@ -36,7 +36,11 @@ const Hero = () => {
   }));
 
   return (
-    <section className="flex min-h-screen flex-col justify-between gap-12 py-20 pt-24 pb-28 xl:pt-28 xl:pb-32">
+    <section
+      id="home"
+      data-section
+      className="flex min-h-screen flex-col justify-between gap-12 py-20 pt-24 pb-28 xl:pt-28 xl:pb-32"
+    >
       <div className="flex flex-col gap-10 sm:flex-row sm:items-start sm:justify-between sm:gap-12">
         <div className="flex max-w-xl flex-col gap-6 text-sm leading-relaxed tracking-wide sm:text-base">
           {pitch.map((paragraph) => (

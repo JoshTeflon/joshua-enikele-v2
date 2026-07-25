@@ -3,7 +3,7 @@
     "title": "Cloud Health (CLOHEA)",
     "description": "A multi-tenant healthcare SaaS platform enabling medical facilities to manage staff and administrative workflows, live across multiple facilities. Led frontend architecture and optimized real-time data workflows to improve staff workspace operational speed.",
     "image": "/prj-clohea.png",
-    "link": "https://example.com",
+    "link": "https://clohea.com/",
     "stack": ["Next.js", "Vue.js", "TypeScript", "TanStack Query", "Node.js", "GitLab CI/CD"],
     "gallery": [
       "/prj-clohea.png",
@@ -21,7 +21,7 @@
     "title": "hashfree",
     "description": "An open-source JavaScript/TypeScript library that strips the # character from section links, producing clean, professional URLs for anchor navigation. Published to npm for use across any JS-based project needing hash-free in-page routing.",
     "image": "/prj-hashfree.png",
-    "link": "https://example.com",
+    "link": "https://www.npmjs.com/package/hashfree",
     "stack": ["JavaScript", "TypeScript", "npm"],
     "gallery": [
       "/prj-hashfree.png",
@@ -34,7 +34,7 @@
     "title": "ii6pyro - Artist Site",
     "description": "An immersive web experience for an Afro-fusion artist based in Lagos, translating the artist's brand into a performant, animated digital presence. Built with WebGL and motion design to create a distinct, high-fidelity visual identity beyond a standard portfolio template.",
     "image": "/prj-ii6.png",
-    "link": "https://example.com",
+    "link": "https://ii6pyro.xyz/",
     "stack": ["Next.js", "TypeScript", "GSAP", "WebGL"],
     "gallery": [
       "/prj-ii6.png",
