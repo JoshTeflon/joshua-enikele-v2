@@ -1,9 +1,9 @@
 "use client";
 
-import Image from "next/image";
 import { useEffect } from "react";
 
 import { CloseIcon } from "../icons";
+import MediaImage from "./media-image";
 import ProjectTitleLink from "./project-title-link";
 
 export type ProjectModalData = {
@@ -49,10 +49,8 @@ const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
         aria-labelledby="project-modal-title"
         className="project-modal relative z-10 flex w-[90%] flex-col overflow-hidden border border-foreground/20 bg-background"
         style={{
-          height:
-            "calc((100vh - 2 * var(--chrome-fade)))",
-          maxHeight:
-            "calc((100vh - 2 * var(--chrome-fade)))",
+          height: "calc((100vh - 2 * var(--chrome-fade)))",
+          maxHeight: "calc((100vh - 2 * var(--chrome-fade)))",
         }}
       >
         <div className="flex items-start justify-between gap-6 border-b border-foreground/15 px-5 py-4 sm:px-8 sm:py-5">
@@ -61,10 +59,7 @@ const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
               id="project-modal-title"
               className="text-2xl font-medium tracking-tight sm:text-3xl lg:text-4xl"
             >
-              <ProjectTitleLink
-                title={project.title}
-                link={project.link}
-              />
+              <ProjectTitleLink title={project.title} link={project.link} />
             </h2>
 
             <p className="max-w-3xl text-sm leading-relaxed text-foreground/75">
@@ -87,7 +82,7 @@ const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
             type="button"
             onClick={onClose}
             aria-label="Close"
-            className="flex size-8 shrink-0 cursor-pointer items-center justify-center text-foreground/80 border border-foreground/20 transition-opacity hover:opacity-70"
+            className="flex size-8 shrink-0 cursor-pointer items-center justify-center border border-foreground/20 text-foreground/80 transition-opacity hover:opacity-70"
           >
             <CloseIcon />
           </button>
@@ -98,9 +93,9 @@ const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
             {project.gallery.map((src, index) => (
               <div
                 key={`${src}-${index}`}
-                className="relative aspect-video w-full overflow-hidden bg-foreground/5"
+                className="relative aspect-video w-full bg-foreground/5"
               >
-                <Image
+                <MediaImage
                   src={src}
                   alt={`${project.title} gallery ${index + 1}`}
                   fill

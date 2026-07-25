@@ -1,13 +1,13 @@
 "use client";
 
-import Image from "next/image";
 import { useMemo, useRef, useState } from "react";
 import type { Swiper as SwiperInstance } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import projects from "@/content/projects.json";
 
-import ProjectModal from "./project-modal";
+import MediaImage from "./media-image";
+import ProjectModal, { type ProjectModalData } from "./project-modal";
 import ProjectTitleLink from "./project-title-link";
 
 import "swiper/css";
@@ -16,6 +16,13 @@ const SLIDES_PER_VIEW = 3;
 const PROJECT_COUNT = projects.length;
 const LOOP_COPIES = 3;
 const CLICK_THRESHOLD_PX = 8;
+
+const canOpenModal = (
+  project: (typeof projects)[number],
+): project is (typeof projects)[number] & ProjectModalData =>
+  Array.isArray(project.gallery) &&
+  project.gallery.length > 0 &&
+  Array.isArray(project.stack);
 
 const slides = Array.from({ length: PROJECT_COUNT * LOOP_COPIES }, (_, index) => ({
   ...projects[index % PROJECT_COUNT],
@@ -75,6 +82,8 @@ const Work = () => {
   const activeProject = projects[activeIndex];
   const selectedProject =
     selectedIndex === null ? null : projects[selectedIndex];
+  const selectedModalProject =
+    selectedProject && canOpenModal(selectedProject) ? selectedProject : null;
 
   const goToProject = (projectIndex: number) => {
     const swiper = swiperRef.current;
@@ -85,6 +94,8 @@ const Work = () => {
   };
 
   const openProject = (projectIndex: number) => {
+    const project = projects[projectIndex];
+    if (!canOpenModal(project)) return;
     setSelectedIndex(projectIndex);
   };
 
@@ -139,38 +150,61 @@ const Work = () => {
           },
         }}
       >
-        {slides.map((project) => (
-          <SwiperSlide key={project.slideId}>
-            <button
-              type="button"
-              className="work-slide-inner relative aspect-video w-full cursor-pointer overflow-hidden"
-              aria-label={`Open ${project.title}`}
-              onPointerDown={(event) => {
-                pointerStart.current = { x: event.clientX, y: event.clientY };
-              }}
-              onClick={(event) => {
-                const start = pointerStart.current;
-                pointerStart.current = null;
-                if (!start) return;
+        {slides.map((project) => {
+          const isOpenable = canOpenModal(project);
 
-                const dx = Math.abs(event.clientX - start.x);
-                const dy = Math.abs(event.clientY - start.y);
-                if (dx > CLICK_THRESHOLD_PX || dy > CLICK_THRESHOLD_PX) return;
+          return (
+            <SwiperSlide key={project.slideId}>
+              {isOpenable ? (
+                <button
+                  type="button"
+                  className="work-slide-inner relative aspect-video w-full cursor-pointer overflow-hidden"
+                  aria-label={`Open ${project.title}`}
+                  onPointerDown={(event) => {
+                    pointerStart.current = {
+                      x: event.clientX,
+                      y: event.clientY,
+                    };
+                  }}
+                  onClick={(event) => {
+                    const start = pointerStart.current;
+                    pointerStart.current = null;
+                    if (!start) return;
 
-                openProject(project.projectIndex);
-              }}
-            >
-              <Image
-                src={project.image}
-                alt={project.title}
-                fill
-                sizes="(max-width: 1024px) 33vw, 33vw"
-                className="object-cover"
-                priority={project.slideId === getProjectSlideIndex(1, 1)}
-              />
-            </button>
-          </SwiperSlide>
-        ))}
+                    const dx = Math.abs(event.clientX - start.x);
+                    const dy = Math.abs(event.clientY - start.y);
+                    if (dx > CLICK_THRESHOLD_PX || dy > CLICK_THRESHOLD_PX) {
+                      return;
+                    }
+
+                    openProject(project.projectIndex);
+                  }}
+                >
+                  <MediaImage
+                    src={project.image}
+                    alt={project.title}
+                    fill
+                    sizes="(max-width: 1024px) 33vw, 33vw"
+                    className="object-cover border border-foreground/10"
+                  />
+                </button>
+              ) : (
+                <div
+                  className="work-slide-inner relative aspect-video w-full overflow-hidden"
+                  aria-label={`${project.title} (private project)`}
+                >
+                  <MediaImage
+                    src={project.image}
+                    alt={project.title}
+                    fill
+                    sizes="(max-width: 1024px) 33vw, 33vw"
+                    className="object-cover border border-foreground/10"
+                  />
+                </div>
+              )}
+            </SwiperSlide>
+          );
+        })}
       </Swiper>
 
       <div className="mx-auto flex max-w-2xl flex-col items-center gap-3 px-2 text-center sm:gap-4">
@@ -185,9 +219,9 @@ const Work = () => {
         </p>
       </div>
 
-      {selectedProject ? (
+      {selectedModalProject ? (
         <ProjectModal
-          project={selectedProject}
+          project={selectedModalProject}
           onClose={() => setSelectedIndex(null)}
         />
       ) : null}

@@ -1,3 +1,5 @@
+import { LuLock } from "react-icons/lu";
+
 import { ArrowIcon } from "../icons";
 
 type ProjectTitleLinkProps = {
@@ -15,32 +17,19 @@ const ProjectTitleLink = ({
 }: ProjectTitleLinkProps) => {
   const isDisabled = !link;
 
-  const content = (
-    <>
-      <span>
-        {title}
-      </span>
-      <span
-        className={`inline-flex size-6 shrink-0 items-center justify-center border transition-all duration-300 ${
-          isDisabled
-            ? "border-foreground/20 text-foreground/30"
-            : "border-foreground/50 text-foreground group-hover:border-foreground group-hover:[&_svg]:rotate-45"
-        }`}
-      >
-        <ArrowIcon className="transition-transform duration-300" />
-      </span>
-    </>
-  );
-
   if (isDisabled) {
     return (
       <span
         id={id}
-        className={`inline-flex items-center gap-2.5 ${className}`}
+        className={`inline-flex items-center gap-2 ${className}`}
         aria-disabled="true"
         title="Private / in-house project"
       >
-        {content}
+        <span>{title}</span>
+        <LuLock
+          aria-hidden
+          className="size-3.5 shrink-0 text-foreground/45 sm:size-4"
+        />
       </span>
     );
   }
@@ -54,7 +43,12 @@ const ProjectTitleLink = ({
       className={`group inline-flex items-center gap-2.5 ${className}`}
       aria-label={`Visit ${title}`}
     >
-      {content}
+      <span className="transition-[letter-spacing] duration-300 group-hover:tracking-wider">
+        {title}
+      </span>
+      <span className="inline-flex size-6 shrink-0 items-center justify-center border border-foreground/50 text-foreground transition-all duration-300 group-hover:border-foreground group-hover:[&_svg]:rotate-45 sm:size-7">
+        <ArrowIcon className="transition-transform duration-300" />
+      </span>
     </a>
   );
 };
