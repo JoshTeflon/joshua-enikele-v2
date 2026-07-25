@@ -56,18 +56,25 @@ const Connect = () => {
       }
 
       if (nameEl) {
-        gsap.to(nameEl, {
-          yPercent: -12,
-          ease: "none",
-          scrollTrigger: {
-            trigger: section,
-            scroller,
-            start: "top bottom",
-            end: "bottom top",
-            scrub: 0.5,
-            invalidateOnRefresh: true,
+        // Mirror of the hero role zoom: settles to full size as Connect arrives
+        gsap.fromTo(
+          nameEl,
+          { scale: 0.88, opacity: 0.4 },
+          {
+            scale: 1,
+            opacity: 1,
+            ease: "none",
+            transformOrigin: "center bottom",
+            scrollTrigger: {
+              trigger: section,
+              scroller,
+              start: "top bottom",
+              end: "bottom bottom",
+              scrub: 0.35,
+              invalidateOnRefresh: true,
+            },
           },
-        });
+        );
       }
     }, section);
 
