@@ -1,9 +1,12 @@
 "use client";
 
-import { useMemo, useRef, useState } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useLayoutEffect, useMemo, useRef, useState } from "react";
 import type { Swiper as SwiperInstance } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 
+import { useSmoothScroll } from "@/components/providers/smooth-scroll-provider";
 import projects from "@/content/projects.json";
 
 import MediaImage from "./media-image";
@@ -11,6 +14,8 @@ import ProjectModal, { type ProjectModalData } from "./project-modal";
 import ProjectTitleLink from "./project-title-link";
 
 import "swiper/css";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const SLIDES_PER_VIEW = 3;
 const PROJECT_COUNT = projects.length;
@@ -69,9 +74,11 @@ const normalizeLoopPosition = (swiper: SwiperInstance) => {
 };
 
 const Work = () => {
+  const { reducedMotion, scrollRoot } = useSmoothScroll();
+  const sectionRef = useRef<HTMLElement>(null);
   const swiperRef = useRef<SwiperInstance | null>(null);
   const pointerStart = useRef<{ x: number; y: number } | null>(null);
-  const [activeIndex, setActiveIndex] = useState(1);
+  const [activeIndex, setActiveIndex] = useState(0);
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
 
   const paginationSlots = useMemo(
@@ -99,8 +106,40 @@ const Work = () => {
     setSelectedIndex(projectIndex);
   };
 
+  useLayoutEffect(() => {
+    const section = sectionRef.current;
+    const scroller = document.querySelector<HTMLElement>(scrollRoot);
+    if (!section || !scroller || reducedMotion) return;
+
+    const ctx = gsap.context(() => {
+      const cards = gsap.utils.toArray<HTMLElement>(".work-card-reveal", section);
+      if (cards.length === 0) return;
+
+      gsap.set(cards, { opacity: 0, scale: 0.96 });
+
+      ScrollTrigger.batch(cards, {
+        scroller,
+        start: "top 80%",
+        once: true,
+        onEnter: (batch) => {
+          gsap.to(batch, {
+            opacity: 1,
+            scale: 1,
+            duration: 0.55,
+            ease: "power2.out",
+            stagger: 0.06,
+            overwrite: "auto",
+          });
+        },
+      });
+    }, section);
+
+    return () => ctx.revert();
+  }, [reducedMotion, scrollRoot]);
+
   return (
     <section
+      ref={sectionRef}
       id="work"
       data-section
       className="flex min-h-screen flex-col justify-center gap-16 py-20 xl:gap-20"
@@ -135,7 +174,7 @@ const Work = () => {
         centeredSlides
         grabCursor
         watchSlidesProgress
-        initialSlide={getProjectSlideIndex(1, 1)}
+        initialSlide={getProjectSlideIndex(0, 1)}
         slidesPerView={SLIDES_PER_VIEW}
         spaceBetween={16}
         onSwiper={(swiper) => {
@@ -184,26 +223,30 @@ const Work = () => {
                     openProject(project.projectIndex);
                   }}
                 >
-                  <MediaImage
-                    src={project.image}
-                    alt={project.title}
-                    fill
-                    sizes="(max-width: 1024px) 33vw, 33vw"
-                    className="object-cover border border-foreground/10"
-                  />
+                  <div className="work-card-reveal absolute inset-0">
+                    <MediaImage
+                      src={project.image}
+                      alt={project.title}
+                      fill
+                      sizes="(max-width: 1024px) 33vw, 33vw"
+                      className="object-cover border border-foreground/10"
+                    />
+                  </div>
                 </button>
               ) : (
                 <div
                   className="work-slide-inner relative aspect-video w-full overflow-hidden"
                   aria-label={`${project.title} (private project)`}
                 >
-                  <MediaImage
-                    src={project.image}
-                    alt={project.title}
-                    fill
-                    sizes="(max-width: 1024px) 33vw, 33vw"
-                    className="object-cover border border-foreground/10"
-                  />
+                  <div className="work-card-reveal absolute inset-0">
+                    <MediaImage
+                      src={project.image}
+                      alt={project.title}
+                      fill
+                      sizes="(max-width: 1024px) 33vw, 33vw"
+                      className="object-cover border border-foreground/10"
+                    />
+                  </div>
                 </div>
               )}
             </SwiperSlide>
