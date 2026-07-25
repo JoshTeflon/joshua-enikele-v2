@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      hashfree:
+        specifier: ^0.1.0
+        version: 0.1.0
       next:
         specifier: 16.2.3
         version: 16.2.3(@babel/core@7.29.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
@@ -1186,6 +1189,9 @@ packages:
   has-tostringtag@1.0.2:
     resolution: {integrity: sha512-NqADB8VjPFLM2V0VvHUewwwsw0ZWBaIdgo+ieHtK3hasLz4qeCRjYcqfB6AQrBggRKppKF8L52/VqdVsO47Dlw==}
     engines: {node: '>= 0.4'}
+
+  hashfree@0.1.0:
+    resolution: {integrity: sha512-vLnB1fkpjvVRlxcxe0Ni6mmih2kbSsjuWS0v6HpClc9gwzTLV2Y3kq13I8mQLDrxdCw9DD5XfJrOOjRfdNMnWA==}
 
   hasown@2.0.2:
     resolution: {integrity: sha512-0hJU9SCPvmMzIBdZFqNPXWa6dqh7WdH0cII9y+CyS8rG3nL48Bclra9HmKhVVUHyPWNH5Y7xDwAB7bfgSjkUMQ==}
@@ -3197,6 +3203,8 @@ snapshots:
   has-tostringtag@1.0.2:
     dependencies:
       has-symbols: 1.1.0
+
+  hashfree@0.1.0: {}
 
   hasown@2.0.2:
     dependencies:

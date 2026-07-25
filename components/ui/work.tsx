@@ -100,7 +100,11 @@ const Work = () => {
   };
 
   return (
-    <section className="flex min-h-screen flex-col justify-center gap-16 py-20 xl:gap-20">
+    <section
+      id="work"
+      data-section
+      className="flex min-h-screen flex-col justify-center gap-16 py-20 xl:gap-20"
+    >
       <nav
         aria-label="Project pagination"
         className="mx-auto grid w-full max-w-24 grid-cols-3 items-end gap-6 lg:max-w-32 lg:gap-8"
