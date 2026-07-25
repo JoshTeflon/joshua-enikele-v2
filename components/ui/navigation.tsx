@@ -1,8 +1,8 @@
 "use client";
 
-import { createSectionNav } from "hashfree";
 import { useEffect, useState } from "react";
 
+import { useSmoothScroll } from "@/components/providers/smooth-scroll-provider";
 import me from "@/content/me.json";
 
 import Frame from "./frame";
@@ -26,7 +26,6 @@ const getActiveSectionId = () => {
     }
   }
 
-  // Above first / below last — clamp to nearest
   const first = sections[0];
   const last = sections[sections.length - 1];
   if (first.getBoundingClientRect().top > focusY) return first.id;
@@ -35,11 +34,11 @@ const getActiveSectionId = () => {
 
 const Navigation = () => {
   const { firstName, lastName } = me;
+  const { lenis, reducedMotion } = useSmoothScroll();
   const [activeSection, setActiveSection] = useState("home");
 
   useEffect(() => {
     let cancelled = false;
-    let nav: ReturnType<typeof createSectionNav> | null = null;
     let rafId = 0;
     let scrollRaf = 0;
     let scroller: HTMLElement | null = null;
@@ -62,10 +61,52 @@ const Navigation = () => {
       });
     };
 
+    const scrollToSection = (sectionId: string, immediate = false) => {
+      const section = document.getElementById(sectionId);
+      if (!section) return;
+
+      if (lenis) {
+        lenis.scrollTo(section, { offset: 0, immediate });
+        return;
+      }
+
+      section.scrollIntoView({
+        behavior: immediate || reducedMotion ? "auto" : "smooth",
+      });
+    };
+
+    const handleNavClick = (event: MouseEvent) => {
+      const target = event.target;
+      if (!(target instanceof Element)) return;
+
+      const anchor = target.closest('a[href^="#"]');
+      if (!anchor) return;
+
+      const id = (anchor.getAttribute("href") ?? "").slice(1);
+      if (!NAV_ITEMS.includes(id as (typeof NAV_ITEMS)[number])) return;
+      if (!document.getElementById(id)) return;
+
+      // Keep # out of the URL while scrolling via Lenis / native scroller
+      event.preventDefault();
+      scrollToSection(id);
+    };
+
+    const handlePopState = () => {
+      const pathSection = window.location.pathname
+        .replace(/\/$/, "")
+        .split("/")
+        .pop();
+      if (
+        pathSection &&
+        NAV_ITEMS.includes(pathSection as (typeof NAV_ITEMS)[number])
+      ) {
+        scrollToSection(pathSection, true);
+      }
+    };
+
     const init = () => {
       if (cancelled) return;
 
-      // Wait for intro scroll-lock to clear so deep links can scrollIntoView
       if (document.documentElement.classList.contains("site-scroll-locked")) {
         rafId = requestAnimationFrame(init);
         return;
@@ -73,15 +114,23 @@ const Navigation = () => {
 
       scroller = document.querySelector<HTMLElement>(".site-scroll");
 
-      // Hashfree handles hash-less clicks + deep-link scroll. Its IO ratio
-      // logic mis-ranks tall sections (about), so active/URL sync is ours.
-      nav = createSectionNav({
-        sections: [],
-        updateStrategy: "replace",
-      });
+      document.addEventListener("click", handleNavClick);
+      window.addEventListener("popstate", handlePopState);
+
+      const pathSection = window.location.pathname
+        .replace(/\/$/, "")
+        .split("/")
+        .pop();
+      if (
+        pathSection &&
+        NAV_ITEMS.includes(pathSection as (typeof NAV_ITEMS)[number])
+      ) {
+        scrollToSection(pathSection, true);
+      }
 
       syncActive();
       scroller?.addEventListener("scroll", onScroll, { passive: true });
+      lenis?.on("scroll", onScroll);
       window.addEventListener("resize", onScroll);
     };
 
@@ -91,11 +140,13 @@ const Navigation = () => {
       cancelled = true;
       cancelAnimationFrame(rafId);
       cancelAnimationFrame(scrollRaf);
+      document.removeEventListener("click", handleNavClick);
+      window.removeEventListener("popstate", handlePopState);
       scroller?.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
-      nav?.destroy();
+      lenis?.off("scroll", onScroll);
     };
-  }, []);
+  }, [lenis, reducedMotion]);
 
   return (
     <nav className="fixed inset-x-6 bottom-6 z-50 grid grid-cols-2 items-center p-2 uppercase xl:inset-x-8 xl:bottom-8">

@@ -1,3 +1,8 @@
+"use client";
+
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useLayoutEffect, useRef } from "react";
 import {
   SiJavascript,
   SiTypescript,
@@ -9,9 +14,12 @@ import {
 } from "react-icons/si";
 import { TbBrandCSharp } from "react-icons/tb";
 
+import { useSmoothScroll } from "@/components/providers/smooth-scroll-provider";
 import me from "@/content/me.json";
 
 import StackSlider, { type StackItem } from "./stack-slider";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const STACK_META: Record<
   string,
@@ -29,14 +37,60 @@ const STACK_META: Record<
 
 const Hero = () => {
   const { role, pitch, locationLine, stacks } = me;
+  const { reducedMotion, scrollRoot } = useSmoothScroll();
+  const sectionRef = useRef<HTMLElement>(null);
+  const roleRef = useRef<HTMLDivElement>(null);
+  const sliderRef = useRef<HTMLDivElement>(null);
 
   const stackItems: StackItem[] = stacks.map((name) => ({
     name,
     ...STACK_META[name]!,
   }));
 
+  useLayoutEffect(() => {
+    const section = sectionRef.current;
+    const roleEl = roleRef.current;
+    const slider = sliderRef.current;
+    const scroller = document.querySelector<HTMLElement>(scrollRoot);
+    if (!section || !roleEl || !scroller || reducedMotion) return;
+
+    const ctx = gsap.context(() => {
+      gsap.to(roleEl, {
+        scale: 0.88,
+        opacity: 0.4,
+        ease: "none",
+        transformOrigin: "center bottom",
+        scrollTrigger: {
+          trigger: section,
+          scroller,
+          start: "top top",
+          end: "bottom top",
+          scrub: 0.35,
+          invalidateOnRefresh: true,
+        },
+      });
+
+      if (slider) {
+        ScrollTrigger.create({
+          trigger: section,
+          scroller,
+          start: "top bottom",
+          end: "bottom top",
+          onToggle: (self) => {
+            slider
+              .querySelector(".stack-slider")
+              ?.classList.toggle("is-paused", !self.isActive);
+          },
+        });
+      }
+    }, section);
+
+    return () => ctx.revert();
+  }, [reducedMotion, scrollRoot]);
+
   return (
     <section
+      ref={sectionRef}
       id="home"
       data-section
       className="flex min-h-screen flex-col justify-between gap-12 py-20 pt-24 pb-28 xl:pt-28 xl:pb-32"
@@ -50,11 +104,13 @@ const Hero = () => {
           ))}
         </div>
 
-        <StackSlider stacks={stackItems} />
+        <div ref={sliderRef}>
+          <StackSlider stacks={stackItems} />
+        </div>
       </div>
 
-      <div className="flex flex-col gap-1">
-        <p className="-mb-4 md:-mb-6 lg:-mb-8 self-end text-right text-xs uppercase tracking-wider text-foreground/80 lg:text-sm">
+      <div ref={roleRef} className="flex flex-col gap-1 will-change-transform">
+        <p className="-mb-4 self-end text-right text-xs uppercase tracking-wider text-foreground/80 md:-mb-6 lg:-mb-8 lg:text-sm">
           {locationLine}
         </p>
 

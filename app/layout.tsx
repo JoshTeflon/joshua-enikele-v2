@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import { Cascadia_Code } from "next/font/google";
 
+import {
+  SmoothScrollProvider,
+  ScrollRoot,
+} from "@/components/providers/smooth-scroll-provider";
 import { Navigation, TopBar, IntroLoader } from "@/components/ui";
 import { duvel, duvelSans, duvelFlorale } from "@/fonts";
 
@@ -14,7 +18,8 @@ const cascadiaCode = Cascadia_Code({
 
 export const metadata: Metadata = {
   title: "Joshua Enikele",
-  description: "Personal portfolio website of Joshua Enikele, a software engineer specializing in frontend engineering and design.",
+  description:
+    "Personal portfolio website of Joshua Enikele, a software engineer specializing in frontend engineering and design.",
 };
 
 export default function RootLayout({
@@ -33,12 +38,12 @@ export default function RootLayout({
             __html: `(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||t==='light'){document.documentElement.classList.add(t);}}catch(e){}})();`,
           }}
         />
-        <IntroLoader />
-        <TopBar />
-
-        <div className="site-scroll">{children}</div>
-
-        <Navigation />
+        <SmoothScrollProvider>
+          <IntroLoader />
+          <TopBar />
+          <ScrollRoot>{children}</ScrollRoot>
+          <Navigation />
+        </SmoothScrollProvider>
       </body>
     </html>
   );
