@@ -4,10 +4,12 @@ import Image from "next/image";
 import { useEffect } from "react";
 
 import { CloseIcon } from "../icons";
+import ProjectTitleLink from "./project-title-link";
 
 export type ProjectModalData = {
   title: string;
   description: string;
+  link?: string | null;
   stack: string[];
   gallery: string[];
 };
@@ -59,7 +61,10 @@ const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
               id="project-modal-title"
               className="text-2xl font-medium tracking-tight sm:text-3xl lg:text-4xl"
             >
-              {project.title}
+              <ProjectTitleLink
+                title={project.title}
+                link={project.link}
+              />
             </h2>
 
             <p className="max-w-3xl text-sm leading-relaxed text-foreground/75">
@@ -93,7 +98,7 @@ const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
             {project.gallery.map((src, index) => (
               <div
                 key={`${src}-${index}`}
-                className="relative aspect-square w-full overflow-hidden bg-foreground/5"
+                className="relative aspect-video w-full overflow-hidden bg-foreground/5"
               >
                 <Image
                   src={src}

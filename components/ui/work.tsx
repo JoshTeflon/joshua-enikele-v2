@@ -8,6 +8,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import projects from "@/content/projects.json";
 
 import ProjectModal from "./project-modal";
+import ProjectTitleLink from "./project-title-link";
 
 import "swiper/css";
 
@@ -173,8 +174,11 @@ const Work = () => {
       </Swiper>
 
       <div className="mx-auto flex max-w-2xl flex-col items-center gap-3 px-2 text-center sm:gap-4">
-        <h3 className="text-base font-medium lowercase tracking-wide lg:text-[1.5rem]">
-          {activeProject.title}
+        <h3 className="text-base font-medium tracking-wide lg:text-[1.5rem]">
+          <ProjectTitleLink
+            title={activeProject.title}
+            link={activeProject.link}
+          />
         </h3>
         <p className="text-sm leading-relaxed text-foreground/80 lg:text-[0.875rem]">
           {activeProject.description}

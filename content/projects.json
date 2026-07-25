@@ -1,50 +1,46 @@
 [
   {
-    "title": "Healthcare SaaS platform",
-    "description": "Multi-tenant healthcare product interfaces spanning scheduling, records, and clinician workflows — built for reliability in production at scale.",
-    "image": "/prj_ii6pyro.png",
-    "stack": ["React", "Vue.js", "JavaScript", "TypeScript", "Node.js"],
+    "title": "Cloud Health (CLOHEA)",
+    "description": "A multi-tenant healthcare SaaS platform enabling medical facilities to manage staff and administrative workflows, live across multiple facilities. Led frontend architecture and optimized real-time data workflows to improve staff workspace operational speed.",
+    "image": "/prj-clohea.png",
+    "link": "https://example.com",
+    "stack": ["Next.js", "Vue.js", "TypeScript", "TanStack Query", "Node.js", "GitLab CI/CD"],
     "gallery": [
-      "/prj_ii6pyro.png",
-      "/prj_ii6pyro.png",
-      "/prj_ii6pyro.png",
-      "/prj_ii6pyro.png"
+      "/prj-clohea.png",
+      "/prj-clohea-x.png",
+      "/prj-clohea-y.png",
+      "/prj-clohea-z.png"
     ]
   },
   {
-    "title": "Civic data systems",
-    "description": "Frontend architecture for civic-scale data surfaces — dashboards and flows designed to stay usable under real-world load and messy inputs.",
-    "image": "/prj_ii6pyro.png",
-    "stack": ["Next.js", "C#", "PostgreSQL"],
+    "title": "Data Cleansing",
+    "description": "A rule-based data quality platform for a government-scale civic dataset, built to validate and correct resident records at high volume. Delivered interactive systems enabling non-technical reviewers to manage  records better.",
+    "image": "/prj-dc.png"
+  },
+  {
+    "title": "hashfree",
+    "description": "An open-source JavaScript/TypeScript library that strips the # character from section links, producing clean, professional URLs for anchor navigation. Published to npm for use across any JS-based project needing hash-free in-page routing.",
+    "image": "/prj-hashfree.png",
+    "link": "https://example.com",
+    "stack": ["JavaScript", "TypeScript", "npm"],
     "gallery": [
-      "/prj_ii6pyro.png",
-      "/prj_ii6pyro.png",
-      "/prj_ii6pyro.png",
-      "/prj_ii6pyro.png"
+      "/prj-hashfree.png",
+      "/prj-hashfree-x.png",
+      "/prj-hashfree-y.png",
+      "/prj-hashfree-z.png"
     ]
   },
   {
-    "title": "Fintech retention feature",
-    "description": "Borrower-facing product work that lifted retention by 10% on a platform serving thousands of users — focused on clarity, trust, and conversion.",
-    "image": "/prj_ii6pyro.png",
-    "stack": ["React", "TypeScript", "PostgreSQL"],
-    "gallery": [
-      "/prj_ii6pyro.png",
-      "/prj_ii6pyro.png",
-      "/prj_ii6pyro.png",
-      "/prj_ii6pyro.png"
-    ]
-  },
-  {
-    "title": "ii6pyro artist site",
-    "description": "Immersive web experience for an Afro-fusion artist based in Lagos. Translates the artist's brand into a performant, animated digital experience with WebGL and motion design.",
-    "image": "/prj_ii6pyro.png",
+    "title": "ii6pyro - Artist Site",
+    "description": "An immersive web experience for an Afro-fusion artist based in Lagos, translating the artist's brand into a performant, animated digital presence. Built with WebGL and motion design to create a distinct, high-fidelity visual identity beyond a standard portfolio template.",
+    "image": "/prj-ii6.png",
+    "link": "https://example.com",
     "stack": ["Next.js", "TypeScript", "GSAP", "WebGL"],
     "gallery": [
-      "/prj_ii6pyro.png",
-      "/prj_ii6pyro.png",
-      "/prj_ii6pyro.png",
-      "/prj_ii6pyro.png"
+      "/prj-ii6.png",
+      "/prj-ii6-x.png",
+      "/prj-ii6-y.png",
+      "/prj-ii6-z.png"
     ]
   }
 ]

@@ -3,9 +3,10 @@ import me from "@/content/me.json";
 const renderRichText = (text: string) =>
   text.split(/(\*\*[^*]+\*\*)/g).map((part, index) => {
     if (part.startsWith("**") && part.endsWith("**")) {
-      return (
+      const content = part.slice(2, -2);
+      const bold = (
         <strong key={index} className="font-semibold text-accent">
-          {part.slice(2, -2)}
+          {content}
         </strong>
       );
     }
