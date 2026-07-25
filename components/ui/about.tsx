@@ -1,12 +1,28 @@
 import me from "@/content/me.json";
 
+const renderRichText = (text: string) =>
+  text.split(/(\*\*[^*]+\*\*)/g).map((part, index) => {
+    if (part.startsWith("**") && part.endsWith("**")) {
+      return (
+        <strong key={index} className="font-semibold text-accent">
+          {part.slice(2, -2)}
+        </strong>
+      );
+    }
+
+    return <span key={index}>{part}</span>;
+  });
+
 const About = () => {
-  const { tagline } = me;
-  const placeholder = Array(3).fill(tagline).join(" ");
+  const { about } = me;
 
   return (
-    <section className="flex min-h-screen flex-col justify-center text-center text-[clamp(2rem,6vw,4rem)] lg:text-[4rem] leading-snug lg:leading-20 tracking-wider">
-      <p>{placeholder}</p>
+    <section className="flex min-h-screen flex-col justify-center py-20 pt-24 pb-28 text-[clamp(1.8rem,5.4vw,3.6rem)] leading-[1.24] tracking-wider lg:text-[3.6rem] lg:leading-18 xl:pt-28 xl:pb-32">
+      <div className="flex flex-col gap-[0.6em]">
+        {about.map((paragraph) => (
+          <p key={paragraph}>{renderRichText(paragraph)}</p>
+        ))}
+      </div>
     </section>
   );
 };

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Cascadia_Code } from "next/font/google";
 
-import { Navigation, TopBar } from "@/components/ui";
+import { Navigation, TopBar, IntroLoader } from "@/components/ui";
 import { duvel, duvelSans, duvelFlorale } from "@/fonts";
 
 import "./globals.css";
@@ -27,15 +27,16 @@ export default function RootLayout({
       lang="en"
       className={`${duvel.variable} ${duvelSans.variable} ${duvelFlorale.variable} ${cascadiaCode.variable} h-full antialiased`}
     >
-      <body className="relative min-h-screen overflow-x-hidden">
+      <body className="relative min-h-screen overflow-hidden">
         <script
           dangerouslySetInnerHTML={{
             __html: `(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||t==='light'){document.documentElement.classList.add(t);}}catch(e){}})();`,
           }}
         />
+        <IntroLoader />
         <TopBar />
-        
-        {children}
+
+        <div className="site-scroll">{children}</div>
 
         <Navigation />
       </body>

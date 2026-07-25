@@ -1,28 +1,78 @@
+import {
+  SiJavascript,
+  SiTypescript,
+  SiReact,
+  SiNextdotjs,
+  SiVuedotjs,
+  SiNodedotjs,
+  SiPostgresql,
+} from "react-icons/si";
+import { TbBrandCSharp } from "react-icons/tb";
+
 import me from "@/content/me.json";
 
+import StackSlider, { type StackItem } from "./stack-slider";
+
+const STACK_META: Record<
+  string,
+  Pick<StackItem, "icon" | "color" | "inverted">
+> = {
+  JavaScript: { icon: SiJavascript, color: "#F7DF1E" },
+  TypeScript: { icon: SiTypescript, color: "#3178C6" },
+  React: { icon: SiReact, color: "#61DAFB" },
+  "Next.js": { icon: SiNextdotjs, inverted: true },
+  "Vue.js": { icon: SiVuedotjs, color: "#42B883" },
+  "Node.js": { icon: SiNodedotjs, color: "#339933" },
+  "C#": { icon: TbBrandCSharp, color: "#512BD4" },
+  PostgreSQL: { icon: SiPostgresql, color: "#4169E1" },
+};
+
 const Hero = () => {
-  const { firstName, lastName, tagline } = me;
+  const { role, pitch, locationLine, stacks } = me;
+
+  const stackItems: StackItem[] = stacks.map((name) => ({
+    name,
+    ...STACK_META[name]!,
+  }));
 
   return (
-    <section className="min-h-screen flex flex-col justify-center gap-8">
-      <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between lg:gap-12">
-        <h2 className="self-start whitespace-nowrap font-duvel uppercase leading-[0.75] tracking-widest text-[clamp(4rem,21vw,16rem)] lg:text-[clamp(3.25rem,17vw,16rem)]">
-          {firstName}
-        </h2>
+    <section className="flex min-h-screen flex-col justify-between gap-12 py-20 pt-24 pb-28 xl:pt-28 xl:pb-32">
+      <div className="flex flex-col gap-10 sm:flex-row sm:items-start sm:justify-between sm:gap-12">
+        <div className="flex max-w-xl flex-col gap-6 text-sm leading-relaxed tracking-wide sm:text-base">
+          {pitch.map((paragraph) => (
+            <p key={paragraph} className="capitalize">
+              {paragraph}
+            </p>
+          ))}
+        </div>
 
-        <p className="max-w-96 self-start lg:self-auto text-sm lg:text-base uppercase leading-snug tracking-[0.05em]">
-          {tagline}
-        </p>
+        <StackSlider stacks={stackItems} />
       </div>
 
-      <div className="flex flex-col-reverse gap-6 lg:flex-row lg:items-baseline-last lg:justify-between lg:gap-12">
-        <p className="max-w-96 self-end text-right text-sm lg:self-auto lg:text-left lg:text-base uppercase leading-snug tracking-[0.05em]">
-          {tagline}
+      <div className="flex flex-col gap-1">
+        <p className="-mb-4 md:-mb-6 lg:-mb-8 self-end text-right text-xs uppercase tracking-wider text-foreground/80 lg:text-sm">
+          {locationLine}
         </p>
 
-        <h2 className="self-end lg:self-auto whitespace-nowrap text-right font-duvel uppercase leading-[0.75] tracking-widest text-[clamp(4rem,21vw,16rem)] lg:text-[clamp(3.25rem,17vw,16rem)]">
-          {lastName}
-        </h2>
+        <svg
+          viewBox="0 0 1000 130"
+          preserveAspectRatio="xMidYMid meet"
+          role="img"
+          aria-label={role}
+          className="block w-full overflow-visible font-duvel-sans"
+        >
+          <text
+            x="0"
+            y="50%"
+            dominantBaseline="central"
+            fontSize="130"
+            textLength="1000"
+            lengthAdjust="spacing"
+            fill="currentColor"
+          >
+            {role.toUpperCase()}.
+          </text>
+        </svg>
       </div>
     </section>
   );
