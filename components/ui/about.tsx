@@ -63,12 +63,12 @@ const About = () => {
             emphasis,
             {
               opacity: 1,
-              duration: 0.4,
-              stagger: 0.05,
+              duration: 0.22,
+              stagger: 0.025,
               ease: "power1.out",
               overwrite: "auto",
             },
-            "-=0.28",
+            "-=0.45",
           );
         }
       });

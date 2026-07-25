@@ -1,11 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 
+import { CloseIcon } from "@/components/icons";
 import { useSmoothScroll } from "@/components/providers/smooth-scroll-provider";
 import me from "@/content/me.json";
 
 import Frame from "./frame";
+import MobileMenu from "./mobile-menu";
 
 const NAV_ITEMS = ["home", "work", "about", "connect"] as const;
 
@@ -36,6 +38,30 @@ const Navigation = () => {
   const { firstName, lastName } = me;
   const { lenis, reducedMotion } = useSmoothScroll();
   const [activeSection, setActiveSection] = useState("home");
+  const [menuOpen, setMenuOpen] = useState(false);
+  const menuOpenRef = useRef(false);
+  const didDeepLinkRef = useRef(false);
+
+  useLayoutEffect(() => {
+    menuOpenRef.current = menuOpen;
+  }, [menuOpen]);
+
+  const scrollToSection = useCallback(
+    (sectionId: string, immediate = false) => {
+      const section = document.getElementById(sectionId);
+      if (!section) return;
+
+      if (lenis) {
+        lenis.scrollTo(section, { offset: 0, immediate });
+        return;
+      }
+
+      section.scrollIntoView({
+        behavior: immediate || reducedMotion ? "auto" : "smooth",
+      });
+    },
+    [lenis, reducedMotion],
+  );
 
   useEffect(() => {
     let cancelled = false;
@@ -44,6 +70,10 @@ const Navigation = () => {
     let scroller: HTMLElement | null = null;
 
     const syncActive = () => {
+      // Opening the mobile menu can briefly desync scroll metrics — freeze
+      // active section + URL updates until the menu is closed.
+      if (menuOpenRef.current) return;
+
       const sectionId = getActiveSectionId();
       setActiveSection(sectionId);
 
@@ -61,20 +91,6 @@ const Navigation = () => {
       });
     };
 
-    const scrollToSection = (sectionId: string, immediate = false) => {
-      const section = document.getElementById(sectionId);
-      if (!section) return;
-
-      if (lenis) {
-        lenis.scrollTo(section, { offset: 0, immediate });
-        return;
-      }
-
-      section.scrollIntoView({
-        behavior: immediate || reducedMotion ? "auto" : "smooth",
-      });
-    };
-
     const handleNavClick = (event: MouseEvent) => {
       const target = event.target;
       if (!(target instanceof Element)) return;
@@ -82,11 +98,12 @@ const Navigation = () => {
       const anchor = target.closest('a[href^="#"]');
       if (!anchor) return;
 
+      if (anchor.closest("[data-mobile-menu]")) return;
+
       const id = (anchor.getAttribute("href") ?? "").slice(1);
       if (!NAV_ITEMS.includes(id as (typeof NAV_ITEMS)[number])) return;
       if (!document.getElementById(id)) return;
 
-      // Keep # out of the URL while scrolling via Lenis / native scroller
       event.preventDefault();
       scrollToSection(id);
     };
@@ -117,15 +134,20 @@ const Navigation = () => {
       document.addEventListener("click", handleNavClick);
       window.addEventListener("popstate", handlePopState);
 
-      const pathSection = window.location.pathname
-        .replace(/\/$/, "")
-        .split("/")
-        .pop();
-      if (
-        pathSection &&
-        NAV_ITEMS.includes(pathSection as (typeof NAV_ITEMS)[number])
-      ) {
-        scrollToSection(pathSection, true);
+      // Deep-link once only — re-running scrollTo on every effect refresh
+      // was fighting the mobile menu open/close scroll pin.
+      if (!didDeepLinkRef.current) {
+        const pathSection = window.location.pathname
+          .replace(/\/$/, "")
+          .split("/")
+          .pop();
+        if (
+          pathSection &&
+          NAV_ITEMS.includes(pathSection as (typeof NAV_ITEMS)[number])
+        ) {
+          scrollToSection(pathSection, true);
+        }
+        didDeepLinkRef.current = true;
       }
 
       syncActive();
@@ -146,31 +168,95 @@ const Navigation = () => {
       window.removeEventListener("resize", onScroll);
       lenis?.off("scroll", onScroll);
     };
-  }, [lenis, reducedMotion]);
+  }, [lenis, scrollToSection]);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 1024px)");
+    const onChange = () => {
+      if (mq.matches) setMenuOpen(false);
+    };
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, []);
+
+  const handleMobileNavigate = (sectionId: string) => {
+    setMenuOpen(false);
+    // Wait for unlock + exit animation start so Lenis can scroll
+    window.setTimeout(() => {
+      scrollToSection(sectionId);
+    }, reducedMotion ? 0 : 320);
+  };
 
   return (
-    <nav className="fixed inset-x-6 bottom-6 z-50 grid grid-cols-2 items-center p-2 uppercase xl:inset-x-8 xl:bottom-8">
-      <h1 className="text-base tracking-[10%]">
-        {firstName}.{lastName}
-      </h1>
+    <>
+      <nav className="fixed inset-x-6 bottom-6 z-90 grid grid-cols-2 items-center p-2 uppercase xl:inset-x-8 xl:bottom-8">
+        <h1 className="text-base tracking-[10%]">
+          {firstName}.{lastName}
+        </h1>
 
-      <ul className="flex items-center justify-end space-x-8 text-sm">
-        {NAV_ITEMS.map((item) => {
-          const isActive = activeSection === item;
+        <ul className="hidden items-center justify-end space-x-8 text-sm lg:flex">
+          {NAV_ITEMS.map((item) => {
+            const isActive = activeSection === item;
 
-          return (
-            <li key={item}>
-              <a
-                className={`frame-link ${isActive ? "active" : ""}`}
-                href={`#${item}`}
-              >
-                <Frame className="px-4 py-1.5">{item}</Frame>
-              </a>
-            </li>
-          );
-        })}
-      </ul>
-    </nav>
+            return (
+              <li key={item}>
+                <a
+                  className={`frame-link ${isActive ? "active" : ""}`}
+                  href={`#${item}`}
+                >
+                  <Frame className="px-4 py-1.5">{item}</Frame>
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+
+        <div className="flex justify-end lg:hidden">
+          <button
+            type="button"
+            className="frame-link cursor-pointer"
+            aria-expanded={menuOpen}
+            aria-controls="mobile-site-menu"
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
+            onClick={() => setMenuOpen((open) => !open)}
+          >
+            <Frame className="px-4 py-1.5 text-sm">
+              <span className="relative grid h-5 w-13 place-items-center">
+                <span
+                  className={`col-start-1 row-start-1 inline-flex items-center justify-center transition-[opacity,transform] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none ${
+                    menuOpen
+                      ? "pointer-events-none -translate-y-1 scale-75 opacity-0"
+                      : "translate-y-0 scale-100 opacity-100"
+                  }`}
+                >
+                  Menu
+                </span>
+                <span
+                  className={`col-start-1 row-start-1 inline-flex items-center justify-center transition-[opacity,transform] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none ${
+                    menuOpen
+                      ? "translate-y-0 scale-100 opacity-100"
+                      : "pointer-events-none translate-y-1 scale-75 opacity-0"
+                  }`}
+                  aria-hidden={!menuOpen}
+                >
+                  <CloseIcon className="size-3.5" />
+                </span>
+              </span>
+            </Frame>
+          </button>
+        </div>
+      </nav>
+
+      <div id="mobile-site-menu" data-mobile-menu>
+        <MobileMenu
+          open={menuOpen}
+          items={NAV_ITEMS}
+          activeSection={activeSection}
+          onClose={() => setMenuOpen(false)}
+          onNavigate={handleMobileNavigate}
+        />
+      </div>
+    </>
   );
 };
 

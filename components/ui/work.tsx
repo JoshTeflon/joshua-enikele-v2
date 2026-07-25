@@ -78,7 +78,7 @@ const Work = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const swiperRef = useRef<SwiperInstance | null>(null);
   const pointerStart = useRef<{ x: number; y: number } | null>(null);
-  const [activeIndex, setActiveIndex] = useState(1);
+  const [activeIndex, setActiveIndex] = useState(0);
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
 
   const paginationSlots = useMemo(
@@ -174,7 +174,7 @@ const Work = () => {
         centeredSlides
         grabCursor
         watchSlidesProgress
-        initialSlide={getProjectSlideIndex(1, 1)}
+        initialSlide={getProjectSlideIndex(0, 1)}
         slidesPerView={SLIDES_PER_VIEW}
         spaceBetween={16}
         onSwiper={(swiper) => {
