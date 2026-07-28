@@ -18,8 +18,11 @@ const cascadiaCode = Cascadia_Code({
 
 export const metadata: Metadata = {
   title: "Joshua Enikele",
-  description:
-    "Personal portfolio website of Joshua Enikele, a software engineer specializing in frontend engineering and design.",
+  description: "Joshua Enikele software engineer portfolio website.",
+  appleWebApp: {
+    title: "JoshuaEnikele",
+    statusBarStyle: "default",
+  },
 };
 
 export default function RootLayout({
