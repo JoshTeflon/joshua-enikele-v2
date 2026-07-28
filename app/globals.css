@@ -91,6 +91,12 @@ html.site-scroll-locked .site-scroll {
   min-height: 100%;
 }
 
+.project-modal-gallery {
+  -webkit-overflow-scrolling: touch;
+  /* Keep a usable scroll surface below the header on short viewports */
+  min-height: min(40dvh, 20rem);
+}
+
 @layer components {
   .corner-hover {
     position: absolute;

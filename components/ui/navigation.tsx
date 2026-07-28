@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 
 import { CloseIcon } from "@/components/icons";
@@ -191,7 +192,9 @@ const Navigation = () => {
     <>
       <nav className="fixed inset-x-6 bottom-6 z-90 grid grid-cols-2 items-center p-2 uppercase xl:inset-x-8 xl:bottom-8">
         <h1 className="text-base tracking-[10%]">
-          {firstName}.{lastName}
+          <Link href={`#${NAV_ITEMS[0]}`}>
+            {firstName}.{lastName}
+          </Link>
         </h1>
 
         <ul className="hidden items-center justify-end space-x-8 text-sm lg:flex">
@@ -200,12 +203,12 @@ const Navigation = () => {
 
             return (
               <li key={item}>
-                <a
+                <Link
                   className={`frame-link ${isActive ? "active" : ""}`}
                   href={`#${item}`}
                 >
                   <Frame className="px-4 py-1.5">{item}</Frame>
-                </a>
+                </Link>
               </li>
             );
           })}
