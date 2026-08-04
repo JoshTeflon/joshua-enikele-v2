@@ -5,7 +5,7 @@ import {
   SmoothScrollProvider,
   ScrollRoot,
 } from "@/components/providers/smooth-scroll-provider";
-import { Navigation, TopBar, IntroLoader } from "@/components/ui";
+import { Navigation, TopBar, IntroLoader, CustomCursor } from "@/components/ui";
 import { duvel, duvelSans, duvelFlorale } from "@/fonts";
 
 import "./globals.css";
@@ -46,6 +46,7 @@ export default function RootLayout({
           <TopBar />
           <ScrollRoot>{children}</ScrollRoot>
           <Navigation />
+          <CustomCursor />
         </SmoothScrollProvider>
       </body>
     </html>
