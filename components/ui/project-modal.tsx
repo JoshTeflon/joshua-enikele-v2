@@ -65,7 +65,7 @@ const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
         aria-modal="true"
         aria-labelledby="project-modal-title"
         data-lenis-prevent
-        className="project-modal relative z-10 flex w-[90%] max-w-5xl flex-col overflow-hidden border border-foreground/20 bg-background"
+        className="project-modal relative z-10 m-auto flex w-[90%] max-w-5xl flex-col overflow-hidden border border-foreground/20 bg-background"
         style={{
           height: "calc(100dvh - 2 * var(--chrome-fade))",
           maxHeight: "calc(100dvh - 2 * var(--chrome-fade))",
