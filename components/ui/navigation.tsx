@@ -75,6 +75,12 @@ const Navigation = () => {
       // active section + URL updates until the menu is closed.
       if (menuOpenRef.current) return;
 
+      // Project modal toggles `site-scroll-locked`; while locked, `.site-scroll`
+      // may report clamped metrics that can wrongly resolve to `home`.
+      if (document.documentElement.classList.contains("site-scroll-locked")) {
+        return;
+      }
+
       const sectionId = getActiveSectionId();
       setActiveSection(sectionId);
 
