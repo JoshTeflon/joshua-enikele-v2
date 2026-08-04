@@ -17,7 +17,7 @@ import "swiper/css";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const SLIDES_PER_VIEW = 3;
+const DESKTOP_SLIDES_PER_VIEW = 3;
 const PROJECT_COUNT = projects.length;
 const LOOP_COPIES = 3;
 const CLICK_THRESHOLD_PX = 8;
@@ -175,8 +175,8 @@ const Work = () => {
         grabCursor
         watchSlidesProgress
         initialSlide={getProjectSlideIndex(0, 1)}
-        slidesPerView={SLIDES_PER_VIEW}
-        spaceBetween={16}
+        slidesPerView={1.15}
+        spaceBetween={14}
         onSwiper={(swiper) => {
           swiperRef.current = swiper;
         }}
@@ -188,7 +188,24 @@ const Work = () => {
           setActiveIndex(swiper.activeIndex % PROJECT_COUNT);
         }}
         breakpoints={{
+          640: {
+            slidesPerView: 1.45,
+            spaceBetween: 16,
+          },
+          900: {
+            slidesPerView: 1.8,
+            spaceBetween: 20,
+          },
           1024: {
+            slidesPerView: 2,
+            spaceBetween: 22,
+          },
+          1100: {
+            slidesPerView: 2.15,
+            spaceBetween: 24,
+          },
+          1280: {
+            slidesPerView: DESKTOP_SLIDES_PER_VIEW,
             spaceBetween: 32,
           },
         }}
@@ -228,7 +245,7 @@ const Work = () => {
                       src={project.image}
                       alt={project.title}
                       fill
-                      sizes="(max-width: 1024px) 33vw, 33vw"
+                      sizes="(max-width: 639px) 88vw, (max-width: 899px) 62vw, (max-width: 1279px) 48vw, 33vw"
                       className="object-cover border border-foreground/10"
                     />
                   </div>
@@ -243,7 +260,7 @@ const Work = () => {
                       src={project.image}
                       alt={project.title}
                       fill
-                      sizes="(max-width: 1024px) 33vw, 33vw"
+                      sizes="(max-width: 639px) 88vw, (max-width: 899px) 62vw, (max-width: 1279px) 48vw, 33vw"
                       className="object-cover border border-foreground/10"
                     />
                   </div>
