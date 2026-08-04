@@ -10,3 +10,4 @@ export { default as StackSlider } from "./stack-slider";
 export { default as LoadingScreen } from "./loading-screen";
 export { default as IntroLoader } from "./intro-loader";
 export { default as ProjectModal } from "./project-modal";
+export { default as CustomCursor } from "./custom-cursor";

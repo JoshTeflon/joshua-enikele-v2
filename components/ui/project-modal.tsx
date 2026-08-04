@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useSyncExternalStore } from "react";
+import { useEffect, useRef, useSyncExternalStore } from "react";
 import { createPortal } from "react-dom";
 
 import { useSmoothScroll } from "@/components/providers/smooth-scroll-provider";
@@ -27,6 +27,7 @@ const getServerSnapshot = () => false;
 
 const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
   const { lenis } = useSmoothScroll();
+  const dialogRef = useRef<HTMLDivElement>(null);
   const mounted = useSyncExternalStore(
     subscribe,
     getClientSnapshot,
@@ -38,14 +39,23 @@ const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
       if (event.key === "Escape") onClose();
     };
 
+    const onPointerDownCapture = (event: PointerEvent) => {
+      const target = event.target;
+      if (!(target instanceof Node)) return;
+      if (dialogRef.current?.contains(target)) return;
+      onClose();
+    };
+
     document.documentElement.classList.add("site-scroll-locked");
     lenis?.stop();
     window.addEventListener("keydown", onKeyDown);
+    window.addEventListener("pointerdown", onPointerDownCapture, true);
 
     return () => {
       document.documentElement.classList.remove("site-scroll-locked");
       lenis?.start();
       window.removeEventListener("keydown", onKeyDown);
+      window.removeEventListener("pointerdown", onPointerDownCapture, true);
     };
   }, [lenis, onClose]);
 
@@ -61,11 +71,12 @@ const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
       />
 
       <div
+        ref={dialogRef}
         role="dialog"
         aria-modal="true"
         aria-labelledby="project-modal-title"
         data-lenis-prevent
-        className="project-modal relative z-10 flex w-[90%] max-w-5xl flex-col overflow-hidden border border-foreground/20 bg-background"
+        className="project-modal relative z-10 m-auto flex w-[90%] max-w-5xl flex-col overflow-hidden border border-foreground/20 bg-background"
         style={{
           height: "calc(100dvh - 2 * var(--chrome-fade))",
           maxHeight: "calc(100dvh - 2 * var(--chrome-fade))",
